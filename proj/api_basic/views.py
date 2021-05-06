@@ -3,14 +3,14 @@ from .serializers import ArticleSerializer
 
 from rest_framework import mixins
 from rest_framework import viewsets
-# from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
-"""generic viewsets"""
+"""modal viewsets"""
 
-class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin,
-                     mixins.CreateModelMixin, mixins.UpdateModelMixin,
-                     mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
-
+class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     queryset = Article.objects.all()
+
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
